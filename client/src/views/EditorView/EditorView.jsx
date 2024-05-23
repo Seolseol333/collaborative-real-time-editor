@@ -1,17 +1,27 @@
 import { Grid } from "@mui/material"
-import { ContentState, convertToRaw } from "draft-js"
-import MUIRichTextEditor from "mui-rte"
+import { useEffect } from "react"
 import { useParams } from "react-router-dom"
+import useWebSocket, { ReadyState } from "react-use-websocket"
 import { Details } from "../../components/Details/Details"
+import { Editor } from "../../components/Editor/Editor"
 import { OnlineUsers } from "../../components/OnlineUsers/OnlineUsers"
+import { EVENTS, WS_URL } from "../../contants"
 
 export const EditorView = () => {
     const { name } = useParams()
+    const { sendJsonMessage, readyState } = useWebSocket(WS_URL, {
+        onOpen: () => console.log('WebSocket connection established!'),
+        share: true,
+        filter: () => false,
+        retryOnError: true,
+        shouldReconnect: () => true
+    })
 
-    const state = ContentState.createFromText(name)
-    const content = JSON.stringify(convertToRaw(state))
-
-    const onSave = () => console.log("Saved")
+    useEffect(() => {
+        if (name && readyState === ReadyState.OPEN) {
+            sendJsonMessage({ username: name, type: EVENTS.USER_EVENT })
+        }
+    }, [name, sendJsonMessage, readyState])
 
     return (
         <Grid
@@ -27,11 +37,7 @@ export const EditorView = () => {
                 alignItems="center"
                 sx={{ width: "70%" }}>
                 <OnlineUsers />
-                <MUIRichTextEditor
-                    label="Start typing..."
-                    defaultValue={content}
-
-                    onSave={onSave} />
+                <Editor />
             </Grid>
             <Grid
                 container
