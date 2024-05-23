@@ -1,0 +1,26 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Websocket Server",
+  "main": "src/index.js",
+  "repository": "https://github.com/marco-rosner/collaborative-real-time-editor.git",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "jest"
+  },
+  "keywords": [
+    "websocket",
+    "server",
+    "node",
+    "mongodb"
+  ],
+  "author": "Marco Rosner",
+  "license": "MIT",
+  "dependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.0",
+    "uuid": "^9.0.1",
+    "ws": "^8.17.0"
+  }
+}
