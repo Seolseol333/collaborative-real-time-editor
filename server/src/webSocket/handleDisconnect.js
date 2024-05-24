@@ -1,17 +1,23 @@
-const { EVENTS, USERS, CLIENTS } = require("../constants");
+const { EVENTS, USERS, CLIENTS, userActivity } = require("../constants");
 const { broadcastMessage } = require("./broadcastMessage");
 
-let userActivity = []
-
 const handleDisconnect = (userId) => {
-    console.log(`${userId} disconnected.`);
-    const json = { type: EVENTS.USER_EVENT };
     const username = USERS[userId]?.username || userId;
-    userActivity.push(`${username} left the document`);
-    json.data = { USERS, userActivity };
+
+    console.log(`${userId} disconnected.`);
+
+    // remove userId
     delete CLIENTS[userId];
     delete USERS[userId];
-    broadcastMessage(json);
+
+    userActivity.push(`${username} left the document`);
+
+    const data = {
+        USERS,
+        userActivity
+    }
+
+    broadcastMessage({ type: EVENTS.USER_EVENT, data });
 }
 
 module.exports = { handleDisconnect }
