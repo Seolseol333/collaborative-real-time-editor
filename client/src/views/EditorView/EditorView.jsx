@@ -12,7 +12,6 @@ export const EditorView = () => {
     const { sendJsonMessage, readyState } = useWebSocket(WS_URL, {
         onOpen: () => console.log('WebSocket connection established!'),
         share: true,
-        filter: () => false,
         retryOnError: true,
         shouldReconnect: () => true
     })

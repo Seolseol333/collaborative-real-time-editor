@@ -1,5 +1,8 @@
 export const TabPanel = ({ value, index, children }) => {
-    if (value === index) return children
-
-    return null;
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}>
+            {children}
+        </div>);
 }

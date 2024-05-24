@@ -1,5 +1,6 @@
 import { Box, Grid, Tab, Tabs } from "@mui/material"
 import { useState } from "react"
+import { Activities } from "../Activities/Activities"
 import { TabPanel } from "../TabPanel/TabPanel"
 
 export const Details = () => {
@@ -24,7 +25,7 @@ export const Details = () => {
                     <Tab label="Revisions" value="1" />
                 </Tabs>
             </Box>
-            <TabPanel value={tab} index="0">Users Online</TabPanel>
+            <TabPanel value={tab} index="0"><Activities /></TabPanel>
             <TabPanel value={tab} index="1">Revisions</TabPanel>
         </Grid>
     )
