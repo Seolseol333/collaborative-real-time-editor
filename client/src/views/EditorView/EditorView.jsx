@@ -5,6 +5,7 @@ import useWebSocket, { ReadyState } from "react-use-websocket"
 import { Details } from "../../components/Details/Details"
 import { Editor } from "../../components/Editor/Editor"
 import { OnlineUsers } from "../../components/OnlineUsers/OnlineUsers"
+import { SaveButton } from "../../components/SaveButton/SaveButton"
 import { EVENTS, WS_URL } from "../../contants"
 
 export const EditorView = () => {
@@ -37,6 +38,7 @@ export const EditorView = () => {
                 sx={{ width: "70%" }}>
                 <OnlineUsers />
                 <Editor />
+                <SaveButton />
             </Grid>
             <Grid
                 container

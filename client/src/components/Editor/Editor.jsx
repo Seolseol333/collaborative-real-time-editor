@@ -1,39 +1,33 @@
-import { ContentState, convertToRaw } from "draft-js"
-import MUIRichTextEditor from "mui-rte"
-import { useEffect, useState } from "react"
+import { DefaultEditor } from 'react-simple-wysiwyg'
 import useWebSocket from "react-use-websocket"
 import { EVENTS, WS_URL } from "../../contants"
-
-const isDocumentEvent = (message) => JSON.parse(message.data).type === EVENTS.CONTENT_CHANGE
+import { isDocumentEvent } from "../../lib/isDocumentEvent"
 
 export const Editor = () => {
-    const [content, setContent] = useState('')
     const { lastJsonMessage, sendJsonMessage } = useWebSocket(WS_URL, {
         share: true,
         filter: isDocumentEvent
     })
 
-    useEffect(() => {
-        const editorContent = lastJsonMessage?.data.editorContent || ''
-        if (!content.includes(editorContent)) {
-            const state = ContentState.createFromText(editorContent)
-            setContent(JSON.stringify(convertToRaw(state)))
-        }
-    }, [lastJsonMessage])
+    let text = lastJsonMessage?.data.editorContent || ''
 
-    const onChange = (state) => {
+    const onChange = (e) => {
         sendJsonMessage({
             type: EVENTS.CONTENT_CHANGE,
-            content: state.getCurrentContent().getPlainText()
+            content: e.target.value
         })
     }
-    const onSave = () => console.log("Saved")
 
     return (
-        <MUIRichTextEditor
-            label="Start typing..."
-            defaultValue={content}
-            onChange={onChange}
-            onSave={onSave} />
+        <DefaultEditor
+            containerProps={{
+                style: {
+                    marginTop: '30px',
+                    width: '60vw',
+                    height: '50vh'
+                }
+            }}
+            value={text}
+            onChange={onChange} />
     )
 }
