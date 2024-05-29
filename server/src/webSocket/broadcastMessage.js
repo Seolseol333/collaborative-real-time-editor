@@ -1,5 +1,5 @@
 const { WebSocket } = require("ws");
-const { CLIENTS, USERS } = require("../constants");
+const { CLIENTS } = require("../constants");
 
 const broadcastMessage = (message) => {
     const json = JSON.stringify(message);

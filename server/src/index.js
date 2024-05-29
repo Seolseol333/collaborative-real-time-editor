@@ -1,11 +1,20 @@
-const { WebSocketServer } = require('ws')
-const http = require('http')
-const { handleConnect } = require('./webSocket/handleConnect')
+require('dotenv').config()
+
+const app = require('./app')
+const appWs = require('./app-ws')
 const { PORT } = require('./constants')
+const db = require('./db')
 
-const server = http.createServer()
-const wsServer = new WebSocketServer({ server })
+const databaseURI = { mongo: { uri: process.env.MONGODB_URI } }
 
-server.listen(PORT, () => console.log(`WebSocket server is running on port ${PORT}`))
+const run = async () => {
+    await db.init(databaseURI)
 
-wsServer.on('connection', handleConnect)
+    const server = app.listen({ port: PORT }, () =>
+        console.log(`🚀 Server ready at http://localhost:${PORT}`)
+    );
+
+    appWs(server)
+}
+
+run()
