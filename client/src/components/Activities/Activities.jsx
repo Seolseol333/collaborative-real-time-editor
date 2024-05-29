@@ -10,8 +10,6 @@ export const Activities = () => {
         filter: isUserEvent
     })
 
-    // useEffect(() => setActivities(lastJsonMessage?.data.userActivity || []), [])
-
     useEffect(() => {
         setActivities(lastJsonMessage?.data.userActivity || [])
     }, [lastJsonMessage])
