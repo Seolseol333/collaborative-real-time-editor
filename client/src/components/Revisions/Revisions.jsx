@@ -11,7 +11,7 @@ export const Revisions = () => {
         <>
             <ul>
                 {revs.map(rev => (
-                    <li key={rev.id}>{rev.revision}</li>
+                    <li key={rev._id}>{rev.revision}</li>
                 ))}
             </ul>
         </>
