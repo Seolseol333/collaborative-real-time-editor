@@ -1,7 +1,8 @@
-const { create } = require("../../model/revision")
+const { create, count } = require("../../model/revision")
 
-const addRevision = (req, res) => {
-    create(req.body).then((rev) => {
+const addRevision = async (req, res) => {
+    const num = await count()
+    create({ revision: `v${num}`, ...req.body }).then((rev) => {
         res.status(201).json(rev)
         res.end()
     }).catch(err => {

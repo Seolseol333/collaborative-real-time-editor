@@ -15,4 +15,6 @@ const get = (id) => Revision.findOne({ ID: id })
 
 const findAll = () => Revision.find()
 
-module.exports = { Revision, create, get, findAll }
+const count = () => Revision.countDocuments()
+
+module.exports = { Revision, create, get, findAll, count }
