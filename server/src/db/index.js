@@ -15,6 +15,9 @@ const init = async ({ mongo: { uri } }) => {
             setTimeout(() => init({ mongo: { uri: mongoURI } }), 5000)
         })
 
+    // drop any missed document on revision's colleciton
+    await mongoose.connection.db.dropCollection("revisions").catch(err => console.error('Error on drop revision: ', err))
+
     Revision(); // create revision collection
 }
 
