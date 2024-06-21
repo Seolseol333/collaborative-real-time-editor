@@ -27,7 +27,7 @@ export const Details = () => {
                 </Tabs>
             </Box>
             <TabPanel value={tab} index="0"><Activities /></TabPanel>
-            <TabPanel value={tab} index="1"><Revisions /></TabPanel>
+            <TabPanel value={tab} index="1"><Revisions refresh={tab} /></TabPanel>
         </Grid>
     )
 }
