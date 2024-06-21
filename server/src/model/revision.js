@@ -11,7 +11,7 @@ const Revision = mongoose.model('Revision', revisionSchema)
 
 const create = (p) => Revision(p).save()
 
-const get = (id) => Revision.findOne({ ID: id })
+const get = (revId) => Revision.findOne({ revision: revId })
 
 const findAll = () => Revision.find()
 
